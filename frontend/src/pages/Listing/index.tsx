@@ -1,19 +1,30 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
 import MovieCard from "../../components/MovieCard";
 import Pagination from "../../components/Pagination";
 import { BASE_URL } from "../../utils/requests";
+import { MoviePage } from "../../types/movie";
 
 function Listing() {
+
+    const [pageNumber, setPageNumber] = useState(0);
 
     // Wrong Way
 
     axios.get(`${BASE_URL}/movies`)
         .then(response => {
-            console.log(response.data)
+            const data = response.data as MoviePage;
+            console.log(data);
+            setPageNumber(data.number);
         });
+
+        useEffect(() => {
+
+        }, [])
 
     return (
         <>
+            <p>{pageNumber}</p>
             <Pagination />
 
             <div className="container">
